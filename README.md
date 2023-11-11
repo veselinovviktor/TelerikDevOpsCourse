@@ -1,1 +1,1 @@
-# TelerikDevOpsCourse
+# devops-programme
