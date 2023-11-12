@@ -16,7 +16,7 @@
       git:
         repo: 'git@github.com:veselinovviktor/TestDokcerintegration.git'
         dest: '{{ application_directory }}'
-        version: main
+        version: secrets-management
         update: true
     - name: Log in to docker
       docker_login:
