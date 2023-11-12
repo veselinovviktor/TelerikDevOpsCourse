@@ -18,6 +18,7 @@
         dest: '{{ application_directory }}'
         version: secrets-management
         update: true
+        force: true
     - name: Log in to docker
       docker_login:
         username: "{{ docker_username }}"
