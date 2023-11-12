@@ -14,7 +14,7 @@
         mode: 493
     - name: 'Checkout repository'
       git:
-        repo: 'git@github.com:veselinovviktor/TestDokcerintegration.git'
+        repo: 'git@github.com:veselinovviktor/TelerikDevOpsCourse.git'
         dest: '{{ application_directory }}'
         version: secrets-management
         update: true
