@@ -1,5 +1,7 @@
-- hosts: 'localhost'
-  become: false
+- hosts: localhost
+  become: 'no'
+  vars_files:
+   - ansible_vault.yml
   vars:
     image_name: veselinovv/python-app
     image_tag: v0.2
@@ -9,14 +11,20 @@
       file:
         name: '{{ application_directory }}'
         state: directory
+        mode: 493
     - name: 'Checkout repository'
       git:
-        repo: 'git@github.com:veselinovviktor/TestDokcerintegration.git'
+        repo: 'git@github.com:veselinovviktor/TelerikDevOpsCourse.git'
         dest: '{{ application_directory }}'
-        version: main
+        version: secrets-management
         update: true
-    - name: 'Build Docker image'
-      community.docker.docker_image:
+        force: true
+    - name: Log in to docker
+      docker_login:
+        username: "{{ docker_username }}"
+        password: "{{ docker_password }}"
+    - name: Build Docker image
+      docker_image:
         build:
           path: '{{ application_directory }}'
           dockerfile: Dockerfile
@@ -25,8 +33,8 @@
         push: true
         source: build
         state: present
-    - name: 'Run Docker container from build image'
-      community.docker.docker_container:
+    - name: Run Docker container from build image
+      docker_container:
         name: python_web
         state: started
         image: '{{ image_name }}:{{ image_tag }}'
