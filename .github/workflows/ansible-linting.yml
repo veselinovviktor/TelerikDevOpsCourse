@@ -1,0 +1,22 @@
+name: Ansible Linting
+
+on: 
+      workflow_dispatch:
+      pull_request:
+        paths: 
+            - 'configuration_management/**'
+
+jobs:
+    linting:
+        name: Lint ansible files
+        runs-on: ubuntu-latest
+
+
+        steps:
+        - name: Checkout sources
+          uses: actions/checkout@v2
+        - name: Linting
+          uses: ansible/ansible-lint@main
+          with: 
+            targets: |
+              configuration_management/ansible_playbook.yml
